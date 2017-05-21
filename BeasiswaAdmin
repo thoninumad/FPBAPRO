@@ -1,0 +1,1487 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Rancang;
+
+import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+ 
+/**
+ *
+ * @author ACER
+ */
+public class BeasiswaAdmin extends javax.swing.JFrame {
+
+    DefaultTableModel tabelModel;
+    LinkedList<Data> mylinkedlist = new LinkedList<Data>();
+  
+    private int tunjuk;
+    /**
+     * Creates new form BeasiswaAdmin
+     */
+    public BeasiswaAdmin() {
+        initComponents();
+        loadData();
+        tampildata(0);
+        tampilDataTabel();
+        lebarKolom();
+        tabel();
+    }
+    
+     private void lebarKolom(){ 
+        TableColumn column;
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF); 
+        column = jTable2.getColumnModel().getColumn(0); 
+        column.setPreferredWidth(45);
+        column = jTable2.getColumnModel().getColumn(1); 
+        column.setPreferredWidth(175); 
+        column = jTable2.getColumnModel().getColumn(2); 
+        column.setPreferredWidth(252); 
+        column = jTable2.getColumnModel().getColumn(3); 
+        column.setPreferredWidth(90); 
+        column = jTable2.getColumnModel().getColumn(4); 
+        column.setPreferredWidth(65); 
+        column = jTable2.getColumnModel().getColumn(5); 
+        column.setPreferredWidth(60); 
+    }
+     
+    
+    void hapus_text(){
+        txtId.setText("");
+        txtId.setEditable(true);
+        txtNama.setText("");
+        txtAsal.setText("");
+        txtDaftar.setText("");
+        txtDaftar.setText("");
+        txtTerima.setText("");
+        txtKeterangan.setText("");
+        jComboBox1.setSelectedItem("--TANGGAL--");
+        jComboBox2.setSelectedItem("--BULAN--");
+        jComboBox3.setSelectedItem("--TAHUN--");
+        
+    }
+    
+    public void baru(){
+        txtId.setEditable(true);
+        txtNama.setEditable(true);
+        txtAsal.setEditable(true);
+        txtDaftar.setEditable(true);
+        txtTerima.setEditable(true);
+        txtKeterangan.setEditable(true);
+        jSave.setEnabled(true);
+        jReset.setEnabled(true);
+        jBaru.setEnabled(false);
+        jHapus.setEnabled(false);
+        jEdit.setEnabled(false);
+    }
+    
+    void enabled(){
+        txtId.setEnabled(true);
+        txtNama.setEnabled(true);
+        txtAsal.setEnabled(true);
+        jComboBox1.setEnabled(true);
+        jComboBox2.setEnabled(true);
+        jComboBox3.setEnabled(true);
+        txtDaftar.setEnabled(true);
+        txtTerima.setEnabled(true);
+        txtKeterangan.setEnabled(true);
+        txtId.requestFocus();
+    }
+    
+    void desabled(){
+        txtId.setEnabled(false);
+        txtNama.setEnabled(false);
+        txtAsal.setEnabled(false);
+        jComboBox1.setEnabled(false);
+        jComboBox2.setEnabled(false);
+        jComboBox3.setEnabled(false);
+        txtDaftar.setEnabled(false);
+        txtTerima.setEnabled(false);
+        txtKeterangan.setEnabled(false);
+    }
+
+    public void kondisiSimpan(){
+        jBaru.setEnabled(false);
+        jEdit.setEnabled(false);
+        jHapus.setEnabled(false);
+    }
+
+    public void tampilTanggal(){
+         int row = jTable2.getSelectedRow();
+         String tanggal=jTable2.getValueAt(row, 3).toString();
+         String thn1=tanggal.substring(0,4);
+         String bln1=tanggal.substring(5,7); 
+         String tgl1=tanggal.substring(8,10);
+         int tgl=0, bln=0, thn=0;
+         
+         if(tgl1.equals("")){
+                    tgl=0;
+                } else if(tgl1.equals("01")){
+                    tgl=1;
+                } else if(tgl1.equals("02")){
+                    tgl=2;
+                } else if(tgl1.equals("03")){
+                    tgl=3;
+                } else if(tgl1.equals("04")){
+                    tgl=4;
+                } else if(tgl1.equals("05")){
+                    tgl=5;
+                } else if(tgl1.equals("06")){
+                    tgl=6;
+                } else if(tgl1.equals("07")){
+                    tgl=7;
+                } else if(tgl1.equals("08")){
+                    tgl=8;
+                } else if(tgl1.equals("09")){
+                    tgl=9;
+                } else if(tgl1.equals("10")){
+                    tgl=10;
+                } else if(tgl1.equals("11")){
+                    tgl=11;
+                } else if(tgl1.equals("12")){
+                    tgl=12;
+                } else if(tgl1.equals("13")){
+                    tgl=13;
+                } else if(tgl1.equals("14")){
+                    tgl=14;
+                } else if(tgl1.equals("15")){
+                    tgl=15;
+                } else if(tgl1.equals("16")){
+                    tgl=16;
+                } else if(tgl1.equals("17")){
+                    tgl=17;
+                } else if(tgl1.equals("18")){
+                    tgl=18;
+                } else if(tgl1.equals("19")){
+                    tgl=19;
+                } else if(tgl1.equals("20")){
+                    tgl=20;
+                } else if(tgl1.equals("21")){
+                    tgl=21;
+                } else if(tgl1.equals("22")){
+                    tgl=22;
+                } else if(tgl1.equals("23")){
+                    tgl=23;
+                } else if(tgl1.equals("24")){
+                    tgl=24;
+                } else if(tgl1.equals("25")){
+                    tgl=25;
+                } else if(tgl1.equals("26")){
+                    tgl=26;
+                } else if(tgl1.equals("27")){
+                    tgl=27;
+                } else if(tgl1.equals("28")){
+                    tgl=28;
+                } else if(tgl1.equals("29")){
+                    tgl=29;
+                } else if(tgl1.equals("30")){
+                    tgl=30;
+                } else if(tgl1.equals("31")){
+                    tgl=31;
+                } 
+                
+                if(bln1.equals("")){
+                    bln=0;
+                } else if(bln1.equals("01")){
+                    bln=1;
+                } else if(bln1.equals("02")){
+                    bln=2;
+                } else if(bln1.equals("03")){
+                    bln=3;
+                } else if(bln1.equals("04")){
+                    bln=4;
+                } else if(bln1.equals("05")){
+                    bln=5;
+                } else if(bln1.equals("06")){
+                    bln=6;
+                } else if(bln1.equals("07")){
+                    bln=7;
+                } else if(bln1.equals("08")){
+                    bln=8;
+                } else if(bln1.equals("09")){
+                    bln=9;
+                } else if(bln1.equals("10")){
+                    bln=10;
+                } else if(bln1.equals("11")){
+                    bln=11;
+                } else if(bln1.equals("12")){
+                    bln=12;
+                } 
+                
+                if(thn1.equals("")){
+                    thn=0;
+                } else if(thn1.equals("2016")){
+                    thn=1;
+                } else if(thn1.equals("2017")){
+                    thn=2;
+                } else if(thn1.equals("2018")){
+                    thn=3;
+                } 
+         
+         if(tanggal.equals(thn1+"-"+bln1+"-"+tgl1)){
+            jComboBox1.setSelectedIndex(tgl);
+            jComboBox2.setSelectedIndex(bln);
+            jComboBox3.setSelectedIndex(thn);
+         }
+    }
+    
+    public void saveData() {
+        try {
+
+            FileOutputStream fout = new FileOutputStream("Data.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(mylinkedlist);
+            oos.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void loadData() {
+        try {
+            FileInputStream fileIn = new FileInputStream("Data.dat");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            LinkedList<Data> tmp = (LinkedList<Data>) in.readObject();
+
+            mylinkedlist.clear();
+            mylinkedlist.addAll(tmp);
+
+            in.close();
+            fileIn.close();
+
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        } catch (ClassNotFoundException cnfe) {
+            cnfe.printStackTrace();
+            return;
+        }
+    }
+
+     public void tampilDataTabel() {
+        String[] kolom = {"ID", "Nama Beasiswa", "Instansi/Perusahaan", "Deadline", "Pendaftar", "Diterima"};
+        Object[][] objData = new Object[mylinkedlist.size()][6];
+        int i = 0;
+        for (Data n : mylinkedlist) {
+            String[] arrData = {n.getId(), n.getNama(), n.getAsal(), n.getTanggal(), n.getDaftar(), n.getTerima()};
+            objData[i] = arrData;
+            i++;
+        }
+        tabelModel = new DefaultTableModel(objData, kolom) {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        jTable2.setModel(tabelModel);
+    }
+     
+     public void pilihUrut(){
+        int pilurut=jComboBox4.getSelectedIndex();
+        if(pilurut==0){
+            loadData();
+            tampildata(0);
+            tampilDataTabel();
+            lebarKolom();
+            tabel();
+        } else if(pilurut==1){
+             txtKeterangan.setText("");
+             TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable2.getModel());
+             jTable2.setRowSorter(sorter);
+             LinkedList<RowSorter.SortKey> sortKeys = new LinkedList<>();
+             sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+             sorter.setSortable(1, false);
+             sorter.setSortable(2, false);
+             sorter.setSortable(3, false);
+             sorter.setSortable(4, false);
+             sorter.setSortable(5, false);
+             sorter.setSortKeys(sortKeys);
+             sorter.sort();
+        } else if(pilurut==2){
+            txtKeterangan.setText("");
+             TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable2.getModel());
+             jTable2.setRowSorter(sorter);
+             LinkedList<RowSorter.SortKey> sortKeys = new LinkedList<>();
+             sortKeys.add(new RowSorter.SortKey(3, SortOrder.ASCENDING));
+             sorter.setSortable(0, false);
+             sorter.setSortable(1, false);
+             sorter.setSortable(2, false);
+             sorter.setSortable(4, false);
+             sorter.setSortable(5, false);
+             sorter.setSortKeys(sortKeys);
+             sorter.sort();
+        } else if(pilurut==3){
+            txtKeterangan.setText("");
+            TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable2.getModel());
+             jTable2.setRowSorter(sorter);
+             LinkedList<RowSorter.SortKey> sortKeys = new LinkedList<>();
+             sortKeys.add(new RowSorter.SortKey(4, SortOrder.ASCENDING));
+             sorter.setSortable(0, false);
+             sorter.setSortable(1, false);
+             sorter.setSortable(2, false);
+             sorter.setSortable(3, false);
+             sorter.setSortable(5, false);
+             sorter.setSortKeys(sortKeys);
+             sorter.sort();
+        } else if(pilurut==4){
+            txtKeterangan.setText("");
+            TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable2.getModel());
+             jTable2.setRowSorter(sorter);
+             LinkedList<RowSorter.SortKey> sortKeys = new LinkedList<>();
+             sortKeys.add(new RowSorter.SortKey(5, SortOrder.ASCENDING));
+             sorter.setSortable(0, false);
+             sorter.setSortable(1, false);
+             sorter.setSortable(2, false);
+             sorter.setSortable(3, false);
+             sorter.setSortable(4, false);
+             sorter.setSortKeys(sortKeys);
+             sorter.sort();
+        } 
+    }
+    
+    public void cari_data(JTable tbl, String text){
+        TableRowSorter sorter = new TableRowSorter(tbl.getModel());
+        tbl.setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+        tbl.setSelectionMode(1);
+    }
+    
+    private void setdata() {
+        Data a;
+        a = mylinkedlist.get(tunjuk);
+        txtId.setText(a.getId());
+        txtNama.setText(a.getNama());
+        txtAsal.setText(a.getAsal());
+        txtDaftar.setText(a.getDaftar());
+        txtTerima.setText(a.getTerima());
+        txtKeterangan.setText(a.getKeterangan());
+      
+        txtId.setEditable(false);
+        txtNama.setEditable(false);
+        txtAsal.setEditable(false);
+        txtDaftar.setEditable(false);
+        txtTerima.setEditable(false);
+        txtKeterangan.setEditable(false);
+    }
+     private void tampildata(int indeks) {
+        
+        tunjuk = indeks;
+        if (mylinkedlist.isEmpty()) {
+            return;
+        }
+        setdata();
+    }
+     
+    private void tabel() {
+        jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int baris = jTable2.getSelectedRow();
+
+                if (baris != -1) {
+                    tampildata(baris);
+                }
+            }
+        });
+        
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jKeluar = new javax.swing.JButton();
+        jPenerima = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jID = new javax.swing.JLabel();
+        jNama = new javax.swing.JLabel();
+        jAsal = new javax.swing.JLabel();
+        jTanggal = new javax.swing.JLabel();
+        jTerima = new javax.swing.JLabel();
+        jDaftar = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        txtNama = new javax.swing.JTextField();
+        txtAsal = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        txtDaftar = new javax.swing.JTextField();
+        txtTerima = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtKeterangan = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jBatal = new javax.swing.JButton();
+        jHapus = new javax.swing.JButton();
+        jReset = new javax.swing.JButton();
+        jSave = new javax.swing.JButton();
+        jEdit = new javax.swing.JButton();
+        jBaru = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        txtCari = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("BASISI  v1.1");
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setPreferredSize(new java.awt.Dimension(876, 95));
+
+        jLabel1.setFont(new java.awt.Font("Perpetua Titling MT", 1, 18)); // NOI18N
+        jLabel1.setText("DATA BEASISWA");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rancang/siits(2).png"))); // NOI18N
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Rancang/hmsiits(2).png"))); // NOI18N
+
+        jKeluar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jKeluar.setText("Log out");
+        jKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jKeluarActionPerformed(evt);
+            }
+        });
+
+        jPenerima.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jPenerima.setText("Data Penerima");
+        jPenerima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPenerimaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(385, 385, 385)
+                .addComponent(jPenerima)
+                .addGap(18, 18, 18)
+                .addComponent(jKeluar)
+                .addGap(30, 30, 30))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jKeluar)
+                            .addComponent(jPenerima)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Form Data Beasiswa", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+
+        jID.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jID.setText("ID Beasiswa");
+
+        jNama.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jNama.setText("Nama Beasiswa");
+
+        jAsal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jAsal.setText("Instansi/Perusahaan");
+
+        jTanggal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTanggal.setText("Deadline");
+
+        jTerima.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTerima.setText("Jumlah Penerima ");
+
+        jDaftar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jDaftar.setText("Jumlah Pendaftar");
+
+        txtId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdKeyPressed(evt);
+            }
+        });
+
+        txtNama.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNamaKeyPressed(evt);
+            }
+        });
+
+        txtAsal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtAsal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtAsalKeyPressed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBox1.setMaximumRowCount(21);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--TANGGAL--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+        });
+
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBox2.setMaximumRowCount(13);
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--BULAN--", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" }));
+        jComboBox2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox2KeyPressed(evt);
+            }
+        });
+
+        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBox3.setMaximumRowCount(4);
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--TAHUN--", "2016", "2017", "2018" }));
+        jComboBox3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox3KeyPressed(evt);
+            }
+        });
+
+        txtDaftar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtDaftar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDaftarKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDaftarKeyTyped(evt);
+            }
+        });
+
+        txtTerima.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTerima.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTerimaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTerimaKeyTyped(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setText("mahasiswa");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setText("mahasiswa");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Keterangan");
+
+        txtKeterangan.setColumns(20);
+        txtKeterangan.setRows(5);
+        jScrollPane1.setViewportView(txtKeterangan);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jDaftar)
+                                .addComponent(jTanggal)
+                                .addComponent(jAsal)
+                                .addComponent(jNama)
+                                .addComponent(jID))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTerima)
+                                .addGap(14, 14, 14)))
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNama)
+                                .addComponent(txtAsal, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel8))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtTerima, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9))))
+                    .addComponent(jLabel4))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jID))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNama))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jAsal))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTanggal))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDaftar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jDaftar))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTerima)
+                    .addComponent(txtTerima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tabel Data Beasiswa", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jBatal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBatal.setText("Batal");
+        jBatal.setPreferredSize(new java.awt.Dimension(71, 23));
+        jBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBatalActionPerformed(evt);
+            }
+        });
+
+        jHapus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jHapus.setText("Hapus");
+        jHapus.setMaximumSize(new java.awt.Dimension(71, 23));
+        jHapus.setMinimumSize(new java.awt.Dimension(71, 23));
+        jHapus.setPreferredSize(new java.awt.Dimension(71, 23));
+        jHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jHapusActionPerformed(evt);
+            }
+        });
+
+        jReset.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jReset.setText("Reset");
+        jReset.setMaximumSize(new java.awt.Dimension(71, 23));
+        jReset.setMinimumSize(new java.awt.Dimension(71, 23));
+        jReset.setPreferredSize(new java.awt.Dimension(71, 23));
+        jReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jResetActionPerformed(evt);
+            }
+        });
+
+        jSave.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jSave.setText("Simpan");
+        jSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSaveActionPerformed(evt);
+            }
+        });
+
+        jEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jEdit.setText("Ubah");
+        jEdit.setMaximumSize(new java.awt.Dimension(71, 23));
+        jEdit.setMinimumSize(new java.awt.Dimension(71, 23));
+        jEdit.setPreferredSize(new java.awt.Dimension(71, 23));
+        jEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEditActionPerformed(evt);
+            }
+        });
+
+        jBaru.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jBaru.setText("Baru");
+        jBaru.setMaximumSize(new java.awt.Dimension(71, 23));
+        jBaru.setMinimumSize(new java.awt.Dimension(71, 23));
+        jBaru.setPreferredSize(new java.awt.Dimension(71, 23));
+        jBaru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBaruActionPerformed(evt);
+            }
+        });
+
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by", "ID", "Deadline", "Jumlah Pendaftar", "Jumlah Diterima" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
+
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCariKeyPressed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setText("Cari  :");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1320, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(626, 626, 626)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(147, 147, 147))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(130, 130, 130)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBaru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSave)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBatal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(429, 429, 429)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jReset, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(429, 429, 429)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBaru, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jSave, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(23, 23, 23))))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSaveActionPerformed
+        // TODO add your handling code here:
+        if(txtId.getText().trim().equals("")){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, ID belum di isi!");
+            txtId.requestFocus();
+        }
+        else if(txtNama.getText().trim().equals("")){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, Nama beasiswa belum di isi!");
+            txtNama.requestFocus();
+        } else if(txtAsal.getText().trim().equals("")){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, Nama perusahaan belum di isi!");
+            txtAsal.requestFocus();
+        } else if(jComboBox1.getSelectedIndex()==0){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, tanggal belum di isi!");
+            jComboBox1.requestFocus();
+        } else if(jComboBox2.getSelectedIndex()==0){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, bulan belum di isi!");
+            jComboBox2.requestFocus();
+        } else if(jComboBox3.getSelectedIndex()==0){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, tahun belum di isi!");
+            jComboBox3.requestFocus();
+        } else if(txtDaftar.getText().trim().equals("")){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, Jumlah pendaftar belum di isi!");
+            txtDaftar.requestFocus();
+        } else if(txtTerima.getText().trim().equals("")){
+            enabled();
+            kondisiSimpan();
+            JOptionPane.showMessageDialog(null,"Maaf, Jumlah penerima belum di isi!");
+            txtTerima.requestFocus();
+        } else{
+            String id = txtId.getText();
+            String nama = txtNama.getText();
+            String asal = txtAsal.getText();
+            int tgl=jComboBox1.getSelectedIndex();
+            int bln=jComboBox2.getSelectedIndex();
+            int thn=jComboBox3.getSelectedIndex();
+            String tanggal="", tgl1="", bln1="", thn1="";
+            if(tgl==0){
+                tgl1="";
+            } else if(tgl==1){
+                tgl1="01";
+            } else if(tgl==2){
+                tgl1="02";
+            } else if(tgl==3){
+                tgl1="03";
+            } else if(tgl==4){
+                tgl1="04";
+            } else if(tgl==5){
+                tgl1="05";
+            } else if(tgl==6){
+                tgl1="06";
+            } else if(tgl==7){
+                tgl1="07";
+            } else if(tgl==8){
+                tgl1="08";
+            } else if(tgl==9){
+                tgl1="09";
+            } else if(tgl==10){
+                tgl1="10";
+            } else if(tgl==11){
+                tgl1="11";
+            } else if(tgl==12){
+                tgl1="12";
+            } else if(tgl==13){
+                tgl1="13";
+            } else if(tgl==14){
+                tgl1="14";
+            } else if(tgl==15){
+                tgl1="15";
+            } else if(tgl==16){
+                tgl1="16";
+            } else if(tgl==17){
+                tgl1="17";
+            } else if(tgl==18){
+                tgl1="18";
+            } else if(tgl==19){
+                tgl1="19";
+            } else if(tgl==20){
+                tgl1="20";
+            } else if(tgl==21){
+                tgl1="21";
+            } else if(tgl==22){
+                tgl1="22";
+            } else if(tgl==23){
+                tgl1="23";
+            } else if(tgl==24){
+                tgl1="24";
+            } else if(tgl==25){
+                tgl1="25";
+            } else if(tgl==26){
+                tgl1="26";
+            } else if(tgl==27){
+                tgl1="27";
+            } else if(tgl==28){
+                tgl1="28";
+            } else if(tgl==29){
+                tgl1="29";
+            } else if(tgl==30){
+                tgl1="30";
+            } else if(tgl==31){
+                tgl1="31";
+            } 
+                
+            if(bln==0){
+                bln1="";
+            } else if(bln==1){
+                bln1="01";
+            } else if(bln==2){
+                bln1="02";
+            } else if(bln==3){
+                bln1="03";
+            } else if(bln==4){
+                bln1="04";
+            } else if(bln==5){
+                bln1="05";
+            } else if(bln==6){
+                bln1="06";
+            } else if(bln==7){
+                bln1="07";
+            } else if(bln==8){
+                bln1="08";
+            } else if(bln==9){
+                bln1="09";
+            } else if(bln==10){
+                bln1="10";
+            } else if(bln==11){
+                bln1="11";
+            } else if(bln==12){
+                bln1="12";
+            } 
+                
+            if(thn==0){
+                thn1="";
+            } else if(thn==1){
+                thn1="2016";
+            } else if(thn==2){
+                thn1="2017";
+            } else if(thn==3){
+                thn1="2018";
+            } 
+                
+            tanggal=thn1+"-"+bln1+"-"+tgl1;
+        
+            String daftar = txtDaftar.getText();
+            String terima = txtTerima.getText();
+            String keterangan = txtKeterangan.getText();
+            Integer dftr=new Integer(daftar);
+            Integer trma=new Integer(terima);
+       
+            if(dftr < trma){
+                JOptionPane.showMessageDialog(this, "Jumlah pendaftar lebih kecil daripada jumlah diterima");
+                txtDaftar.requestFocus();
+            } else {
+            
+            mylinkedlist.add(new Data(id, nama, asal, tanggal, daftar, terima, keterangan));
+            saveData();
+            loadData();
+            tampilDataTabel();
+            lebarKolom();
+            txtKeterangan.setEditable(false);
+            tampildata(mylinkedlist.size()-1);
+            JOptionPane.showMessageDialog(this, "Save Success");
+            jSave.setEnabled(false);
+            }
+        
+        }
+    }//GEN-LAST:event_jSaveActionPerformed
+
+    private void jBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBaruActionPerformed
+        // TODO add your handling code here:
+        hapus_text();
+        enabled();
+        baru();
+    }//GEN-LAST:event_jBaruActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+         txtId.setRequestFocusEnabled(false);
+         enabled();
+         jEdit.setEnabled(true);
+         jEdit.setText("Ubah");
+         jHapus.setEnabled(true);
+         jBaru.setEnabled(true);
+         txtId.setEditable(false);
+         txtNama.setEditable(false);
+         txtAsal.setEditable(false);
+         txtDaftar.setEditable(false);
+         txtTerima.setEditable(false);
+         txtKeterangan.setEditable(false);
+         tampilTanggal();
+        
+        
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBatalActionPerformed
+        // TODO add your handling code here:
+        desabled();
+        jEdit.setText("Ubah");
+        jSave.setEnabled(false);
+        jEdit.setEnabled(false);
+        jHapus.setEnabled(false);
+        jReset.setEnabled(false);
+        jBaru.setEnabled(true);
+    }//GEN-LAST:event_jBatalActionPerformed
+
+    private void jResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResetActionPerformed
+        // TODO add your handling code here:\
+        hapus_text();
+    }//GEN-LAST:event_jResetActionPerformed
+
+    private void txtNamaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtAsal.requestFocus();
+        }
+    }//GEN-LAST:event_txtNamaKeyPressed
+
+    private void txtAsalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAsalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jComboBox1.requestFocus();
+        }
+    }//GEN-LAST:event_txtAsalKeyPressed
+
+    private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtNama.requestFocus();
+        }
+    }//GEN-LAST:event_txtIdKeyPressed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jComboBox2.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jComboBox3.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBox2KeyPressed
+
+    private void jComboBox3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox3KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtDaftar.requestFocus();
+        }
+    }//GEN-LAST:event_jComboBox3KeyPressed
+
+    private void txtDaftarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDaftarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtTerima.requestFocus();
+        }
+    }//GEN-LAST:event_txtDaftarKeyPressed
+
+    private void jEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditActionPerformed
+        // TODO add your handling code here:
+         if(jEdit.getText().equals("Ubah")){
+            enabled();
+            jEdit.setText("Simpan");
+            jBaru.setEnabled(false);
+            jSave.setEnabled(false);
+            jHapus.setEnabled(false);
+            jReset.setEnabled(false);
+            jBatal.setEnabled(true);
+            txtId.setEditable(true);
+            txtNama.setEditable(true);
+            txtAsal.setEditable(true);
+            txtDaftar.setEditable(true);
+            txtTerima.setEditable(true);
+            txtKeterangan.setEditable(true);
+            txtId.setText(mylinkedlist.get(tunjuk).getId());
+            txtNama.setText(mylinkedlist.get(tunjuk).getNama());
+            txtAsal.setText(mylinkedlist.get(tunjuk).getAsal());
+            txtDaftar.setText(mylinkedlist.get(tunjuk).getDaftar());
+            txtTerima.setText(mylinkedlist.get(tunjuk).getTerima());
+            tampilTanggal();
+        } else if(jEdit.getText().equals("Simpan")) {
+            String id = txtId.getText();
+            String nama = txtNama.getText();
+            String asal = txtAsal.getText();
+            int tgl=jComboBox1.getSelectedIndex();
+            int bln=jComboBox2.getSelectedIndex();
+            int thn=jComboBox3.getSelectedIndex();
+            String tanggal="", tgl1="", bln1="", thn1="";
+            if(tgl==0){
+                tgl1="";
+            } else if(tgl==1){
+                tgl1="01";
+            } else if(tgl==2){
+                tgl1="02";
+            } else if(tgl==3){
+                tgl1="03";
+            } else if(tgl==4){
+                tgl1="04";
+            } else if(tgl==5){
+                tgl1="05";
+            } else if(tgl==6){
+                tgl1="06";
+            } else if(tgl==7){
+                tgl1="07";
+            } else if(tgl==8){
+                tgl1="08";
+            } else if(tgl==9){
+                tgl1="09";
+            } else if(tgl==10){
+                tgl1="10";
+            } else if(tgl==11){
+                tgl1="11";
+            } else if(tgl==12){
+                tgl1="12";
+            } else if(tgl==13){
+                tgl1="13";
+            } else if(tgl==14){
+                tgl1="14";
+            } else if(tgl==15){
+                tgl1="15";
+            } else if(tgl==16){
+                tgl1="16";
+            } else if(tgl==17){
+                tgl1="17";
+            } else if(tgl==18){
+                tgl1="18";
+            } else if(tgl==19){
+                tgl1="19";
+            } else if(tgl==20){
+                tgl1="20";
+            } else if(tgl==21){
+                tgl1="21";
+            } else if(tgl==22){
+                tgl1="22";
+            } else if(tgl==23){
+                tgl1="23";
+            } else if(tgl==24){
+                tgl1="24";
+            } else if(tgl==25){
+                tgl1="25";
+            } else if(tgl==26){
+                tgl1="26";
+            } else if(tgl==27){
+                tgl1="27";
+            } else if(tgl==28){
+                tgl1="28";
+            } else if(tgl==29){
+                tgl1="29";
+            } else if(tgl==30){
+                tgl1="30";
+            } else if(tgl==31){
+                tgl1="31";
+            } 
+                
+            if(bln==0){
+                bln1="";
+            } else if(bln==1){
+                bln1="01";
+            } else if(bln==2){
+                bln1="02";
+            } else if(bln==3){
+                bln1="03";
+            } else if(bln==4){
+                bln1="04";
+            } else if(bln==5){
+                bln1="05";
+            } else if(bln==6){
+                bln1="06";
+            } else if(bln==7){
+                bln1="07";
+            } else if(bln==8){
+                bln1="08";
+            } else if(bln==9){
+                bln1="09";
+            } else if(bln==10){
+                bln1="10";
+            } else if(bln==11){
+                bln1="11";
+            } else if(bln==12){
+                bln1="12";
+            } 
+                
+            if(thn==0){
+                thn1="";
+            } else if(thn==1){
+                thn1="2016";
+            } else if(thn==2){
+                thn1="2017";
+            } else if(thn==3){
+                thn1="2018";
+            } 
+                
+            tanggal=thn1+"-"+bln1+"-"+tgl1;
+        
+            String daftar = txtDaftar.getText();
+            String terima = txtTerima.getText();
+            String keterangan = txtKeterangan.getText();
+             Integer dftr=new Integer(daftar);
+            Integer trma=new Integer(terima);
+       
+            if(dftr < trma){
+                JOptionPane.showMessageDialog(this, "Jumlah pendaftar lebih kecil daripada jumlah diterima");
+                txtDaftar.requestFocus();
+            } else {
+            
+            Data a = mylinkedlist.get(tunjuk);
+            a.setId(id);
+            a.setNama(nama);
+            a.setAsal(asal);
+            a.setDaftar(daftar);
+            a.setTerima(terima);
+            a.setTanggal(tanggal);
+            a.setKeterangan(keterangan);
+            this.saveData();
+            loadData();
+            tampilDataTabel();
+            lebarKolom();
+            tampildata(tunjuk);
+            JOptionPane.showMessageDialog(this, "Edit Success");
+            }
+        }
+       
+    }//GEN-LAST:event_jEditActionPerformed
+
+    private void jHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHapusActionPerformed
+        // TODO add your handling code here:
+        int Pilih = JOptionPane.showConfirmDialog(null,"Apakah Anda yakin ingin menghapus data ini?","Pertanyaan",JOptionPane.YES_NO_OPTION);
+        if(Pilih == JOptionPane.YES_OPTION) {
+        mylinkedlist.remove(tunjuk);
+        this.saveData();
+        loadData();
+        tampilDataTabel();
+        lebarKolom();
+        tampildata(0);
+        JOptionPane.showMessageDialog(this, "Delete Success");
+        }
+    }//GEN-LAST:event_jHapusActionPerformed
+
+    private void jKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jKeluarActionPerformed
+        // TODO add your handling code here:
+        new Mains().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jKeluarActionPerformed
+
+    private void jPenerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPenerimaActionPerformed
+        // TODO add your handling code here:
+        new TerimaAdmin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jPenerimaActionPerformed
+
+    private void txtTerimaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTerimaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtKeterangan.requestFocus();
+        }
+    }//GEN-LAST:event_txtTerimaKeyPressed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+        pilihUrut();
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void txtCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyPressed
+        // TODO add your handling code here:
+          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cari_data(jTable2, txtCari.getText());
+        }
+    }//GEN-LAST:event_txtCariKeyPressed
+
+    private void txtDaftarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDaftarKeyTyped
+        // TODO add your handling code here:
+          char karakter = evt.getKeyChar();
+    if(!(((karakter >= '0') && (karakter <= '9') || (karakter == KeyEvent.VK_BACK_SPACE) || (karakter == KeyEvent.VK_DELETE)))){
+    getToolkit().beep();
+     evt.consume();
+}
+    }//GEN-LAST:event_txtDaftarKeyTyped
+
+    private void txtTerimaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTerimaKeyTyped
+        // TODO add your handling code here:
+          char karakter = evt.getKeyChar();
+    if(!(((karakter >= '0') && (karakter <= '9') || (karakter == KeyEvent.VK_BACK_SPACE) || (karakter == KeyEvent.VK_DELETE)))){
+    getToolkit().beep();
+     evt.consume();
+}
+    }//GEN-LAST:event_txtTerimaKeyTyped
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(BeasiswaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(BeasiswaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(BeasiswaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(BeasiswaAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BeasiswaAdmin().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jAsal;
+    private javax.swing.JButton jBaru;
+    private javax.swing.JButton jBatal;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JLabel jDaftar;
+    private javax.swing.JButton jEdit;
+    private javax.swing.JButton jHapus;
+    private javax.swing.JLabel jID;
+    private javax.swing.JButton jKeluar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jNama;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton jPenerima;
+    private javax.swing.JButton jReset;
+    private javax.swing.JButton jSave;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel jTanggal;
+    private javax.swing.JLabel jTerima;
+    private javax.swing.JTextField txtAsal;
+    private javax.swing.JTextField txtCari;
+    private javax.swing.JTextField txtDaftar;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextArea txtKeterangan;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtTerima;
+    // End of variables declaration//GEN-END:variables
+}
